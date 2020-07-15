@@ -8,6 +8,7 @@ exports.saveDetails = (req, res) => {
   const newUser = new User({ username, name, age })
   newUser.save((err, result) => {
     if (err) {
+      console.log(err)
       return res.status(401).json({
         error: 'Error saving to database, try later'
       })
