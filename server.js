@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 app.use(cors({ origin: process.env.CLIENT_URL }))
 
 // middleware
-app.use('/', saveDetails)
+app.use('/api', saveDetails)
 
 const port = process.env.PORT || 8000
 app.listen(port, () => console.log(`API is running on port ${port}`))
