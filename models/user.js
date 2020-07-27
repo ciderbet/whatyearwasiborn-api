@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -6,26 +7,72 @@ const userSchema = new mongoose.Schema({
     trim: true,
     max: 12,
     unique: true,
-    require: true,
+    required: true,
     index: true,
     lowercase: true
   },
   name: {
     type: String,
     trim: true,
-    require: true,
+    required: true,
     max: 32
   },
-  age: {
-    type: Number,
+  email: {
+    type: String,
     trim: true,
-    require: true,
-    max: 120,
-    validate: {
-      validator: Number.isInteger,
-      message: '{VALUE} is not an integer'
-    }
+    required: true,
+    unique: true,
+    max: 32,
+    lowercase: true
+  },
+  hashed_password: {
+    type: String,
+    required: true
+  },
+  salt: String,
+  role: {
+    type: String,
+    default: 'subscriber'
+  },
+  resetPasswordLink: {
+    data: String,
+    default: ''
   }
 }, { timestamps: true })
+
+// virtual fields
+userSchema.virtual('password')
+  .set(function (password) {
+    // create temp variable called _password
+    this._password = password
+    // generate salt
+    this.salt = this.makeSalt()
+    // encrypt password
+    this.hashed_password = this.encrytPassword(password)
+  })
+  .get(function () {
+    return this._password
+  })
+
+// methods > authenticate, encryptPassword, makeSalt
+userSchema.methods = {
+  authenticate: function (plainText) {
+    return this.encryptPassword(plainText) === this.hashed_password
+  },
+  encryptPassword: function (password) {
+    if (!password) return ''
+    try {
+      return crypto.createHmac('sha256', this.salt)
+        .update(password)
+        .digest('hex')
+    } catch (err) {
+      return ''
+    }
+  },
+  makeSalt: function () {
+    return Math.round(new Date().valueOf() * Math.random()) + ''
+  }
+}
+// export user model
 
 module.exports = mongoose.model('User', userSchema)
