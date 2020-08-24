@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { ObjectId } = mongoose.Schema
 
 const categorySchema = new mongoose.Schema({
   name: {
@@ -23,7 +24,7 @@ const categorySchema = new mongoose.Schema({
     max: 2000000
   },
   postedBy: {
-    type: ObjectID,
+    type: ObjectId,
     ref: 'User'
   }
 }, { timestamps: true })

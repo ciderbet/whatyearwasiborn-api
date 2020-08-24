@@ -22,7 +22,8 @@
     "mongoose": "^5.9.23",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "slugify": "^1.4.5"
   },
   "devDependencies": {
     "eslint": "^7.4.0",

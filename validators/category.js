@@ -10,7 +10,7 @@ exports.categoryCreateValidator = [
     .withMessage('Image is required'),
   check('content')
     .isLength({ min: 20 })
-    .withMessage('Content is required')
+    .withMessage('Content must be at least 20 characters')
 ]
 
 exports.categoryUpdateValidator = [
