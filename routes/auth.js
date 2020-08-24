@@ -2,7 +2,12 @@ const express = require('express')
 const router = express.Router()
 
 // import validators
-const { userRegisterValidator, userLoginValidator, forgotPasswordValidator, resetPasswordValidator } = require('../validators/auth')
+const {
+  userRegisterValidator,
+  userLoginValidator,
+  forgotPasswordValidator,
+  resetPasswordValidator
+} = require('../validators/auth')
 const { runValidation } = require('../validators')
 
 // import from controllers
