@@ -11,7 +11,7 @@ const { create, list, read, update, remove } = require('../controllers/link')
 
 // routes
 router.post('/link', linkCreateValidator, runValidation, requireSignin, authMiddleware, create)
-router.get('/link', list)
+router.get('/links', list)
 router.get('/link/:slug', read)
 router.put('/link/:slug', linkUpdateValidator, runValidation, requireSignin, authMiddleware, create)
 router.delete('/link/:slug', requireSignin, authMiddleware, remove)
