@@ -8,9 +8,6 @@ exports.create = (req, res) => {
   const link = new Link({ title, url, categories, type, medium, slug })
   // posted by user
   link.postedBy = req.user._id
-  // categories
-  const arrayOfCategories = categories && categories.split(',')
-  link.categories = arrayOfCategories
   // save link
   link.save((err, data) => {
     if (err) {
